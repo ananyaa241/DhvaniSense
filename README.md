@@ -11,6 +11,11 @@ AI-Generated Voice Detection API
 This project provides a REST API that detects whether a given voice sample is AI-generated or Human.
 Follow the steps below exactly in order to run the project and generate the final API URL.
 
+
+
+
+
+
 ✅ Step 0 — Prerequisites
 
 Ensure the following are installed on your system:
@@ -23,6 +28,7 @@ Verify:
 
 python --version
 
+
 2️⃣ FFmpeg (Required for MP3 decoding)
 
 Download from: https://www.gyan.dev/ffmpeg/builds/
@@ -32,6 +38,9 @@ Extract and add the bin/ folder to system PATH
 Verify:
 
 ffmpeg -version
+
+
+
 
 📦 Step 1 — Install Python Dependencies
 
@@ -58,6 +67,11 @@ SciPy
 
 Pydub
 
+
+
+
+
+
 🎧 Step 2 — Prepare the Training Dataset
 
 Ensure training audio is placed as follows:
@@ -80,6 +94,10 @@ MP3 format only
 One speaker per file
 
 Avoid empty or noisy audio
+
+
+
+
 
 🧠 Step 3 — Train the Model
 
@@ -105,6 +123,10 @@ api/model_weights.pth
 
 ⚠️ This step is required only once, unless you add more data or modify training logic.
 
+
+
+
+
 🚀 Step 4 — Start the API Server
 
 From the project root:
@@ -116,6 +138,10 @@ uvicorn app:app
 If successful, you will see:
 
 Uvicorn running on http://127.0.0.1:8000
+
+
+
+
 
 🌐 Step 5 — Final Generated URLs
 
@@ -133,6 +159,10 @@ http://127.0.0.1:8000/docs
 
 👉 This /docs URL is the final URL used for testing and validation.
 
+
+
+
+
 🔐 Step 6 — API Authentication
 
 All requests must include the following header:
@@ -141,6 +171,11 @@ x-api-key: sk_dhvanisense_2026
 
 
 Requests without this key will be rejected.
+
+
+
+
+
 
 📡 Step 7 — Test the API (Example)
 Request Body
@@ -158,6 +193,10 @@ Response Example
   "confidenceScore": 0.63,
   "explanation": "Unnatural pitch consistency and robotic speech patterns detected"
 }
+
+
+
+
 
 🔁 Restarting After Shutdown
 
