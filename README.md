@@ -6,19 +6,32 @@ DhvaniSense is an API-based system that detects whether a given voice sample is 
 
 📂 Project Structure
 DhvaniSense/
+
 ├── api/
-│   ├── app.py              # FastAPI application
-│   ├── model.py            # Neural network model definition
-│   ├── audio_utils.py      # Audio loading & feature extraction
+
+│   ├── app.py
+                            # FastAPI application
+│   ├── model.py  
+                            # Neural network model definition
+│   ├── audio_utils.py      
+                            # Audio loading & feature extraction
 │   └── mpes.py             # Micro-Prosody Entropy Score logic
 │
 ├── training/
-│   ├── train.py            # Model training script
+
+│   ├── train.py          
+                            # Model training script
 │   └── dataset/
-│       ├── human/          # Human voice MP3 files
-│       └── ai/             # AI-generated voice MP3 files
+
+│       ├── human/      
+                            # Human voice MP3 files
+│       └── ai/             
+                            # AI-generated voice MP3 files
 │
+
 ├── requirements.txt
+
+
 └── .gitignore
 
 
