@@ -3,71 +3,64 @@ AI-Generated Voice Detection (Multi-Language)
 DhvaniSense is an API-based system that detects whether a given voice sample is AI-generated or Human, across multiple languages, using audio signal processing and a lightweight machine learning model enhanced with a custom Micro-Prosody Entropy Score (MPES).
 
 
+📘 README.md — DhvaniSense
+AI-Generated Voice Detection API
 
-📂 Project Structure
-DhvaniSense/
+(End-to-End Setup → Final URL Generation)
 
-├── api/
+This project provides a REST API that detects whether a given voice sample is AI-generated or Human.
+Follow the steps below exactly in order to run the project and generate the final API URL.
 
-│   ├── app.py
-                            # FastAPI application
-│   ├── model.py  
-                            # Neural network model definition
-│   ├── audio_utils.py      
-                            # Audio loading & feature extraction
-│   └── mpes.py             # Micro-Prosody Entropy Score logic
-│
-├── training/
+✅ Step 0 — Prerequisites
 
-│   ├── train.py          
-                            # Model training script
-│   └── dataset/
+Ensure the following are installed on your system:
 
-│       ├── human/      
-                            # Human voice MP3 files
-│       └── ai/             
-                            # AI-generated voice MP3 files
-│
-
-├── requirements.txt
-
-
-└── .gitignore
-
-
-
-
-⚙️ Prerequisites
 1️⃣ Python
 
-Python 3.9 or above
+Version 3.9 or above
 
-2️⃣ FFmpeg (Required)
+Verify:
 
-FFmpeg is required for decoding MP3 audio files.
+python --version
+
+2️⃣ FFmpeg (Required for MP3 decoding)
 
 Download from: https://www.gyan.dev/ffmpeg/builds/
 
-Add the bin/ directory to the system PATH
+Extract and add the bin/ folder to system PATH
 
-Verify installation:
+Verify:
 
 ffmpeg -version
 
+📦 Step 1 — Install Python Dependencies
 
+Open the project folder in VS Code and open a terminal.
 
-
-📦 Install Dependencies
-
-From the project root directory:
+From the project root:
 
 pip install -r requirements.txt
 
 
-🎧 Preparing the Training Dataset
-Dataset Format
+This installs:
 
-Training data must be organized as follows:
+FastAPI
+
+Uvicorn
+
+PyTorch
+
+Librosa
+
+NumPy
+
+SciPy
+
+Pydub
+
+🎧 Step 2 — Prepare the Training Dataset
+
+Ensure training audio is placed as follows:
 
 training/dataset/
 ├── human/
@@ -79,106 +72,77 @@ training/dataset/
     ├── ai2.mp3
     └── ...
 
-Dataset Guidelines
 
-Audio format: MP3
+Rules:
+
+MP3 format only
 
 One speaker per file
 
-Avoid long silences or heavy background noise
+Avoid empty or noisy audio
 
-Balanced human and AI samples are recommended
+🧠 Step 3 — Train the Model
 
-
-
-🧠 Training the Model
-
-Run the training script from the project root:
+From the project root:
 
 cd training
 python train.py
+cd ..
 
-Training Pipeline
 
-MP3 audio is resampled to 16 kHz
+What this does:
 
-MFCC features are extracted
+Loads training audio
 
-Labels:
+Extracts MFCC features
 
-0 → Human
+Trains a neural network
 
-1 → AI-generated
-
-Model is trained using supervised learning
-
-Trained weights are saved to:
+Saves trained weights to:
 
 api/model_weights.pth
 
 
+⚠️ This step is required only once, unless you add more data or modify training logic.
 
+🚀 Step 4 — Start the API Server
 
-🔁 Improving the Model
-
-The model can be improved by:
-
-Adding more MP3 samples to human/ and ai/
-
-Adjusting training parameters in training/train.py
-
-Number of epochs
-
-Learning rate
-
-Network size
-
-Modifying the MPES logic in api/mpes.py to experiment with:
-
-Pitch entropy thresholds
-
-Additional micro-prosodic features
-
-Retraining is required after any dataset or model change.
-
-
-
-
-🚀 Running the API
-
-Start the API server from the project root:
+From the project root:
 
 cd api
-uvicorn app:app --reload
+uvicorn app:app
 
 
-The API will be available at:
+If successful, you will see:
 
+Uvicorn running on http://127.0.0.1:8000
+
+🌐 Step 5 — Final Generated URLs
+
+Once the server is running, the following URLs are available:
+
+🔹 Base API URL
 http://127.0.0.1:8000
 
+🔹 API Endpoint URL (for requests)
+http://127.0.0.1:8000/api/voice-detection
 
-Interactive API documentation (Swagger UI):
-
+🔹 Interactive API Documentation (Swagger UI)
 http://127.0.0.1:8000/docs
 
 
+👉 This /docs URL is the final URL used for testing and validation.
 
+🔐 Step 6 — API Authentication
 
-
-🔐 API Authentication
-
-All API requests must include the following header:
+All requests must include the following header:
 
 x-api-key: sk_dhvanisense_2026
 
 
-Requests without a valid API key will be rejected.
+Requests without this key will be rejected.
 
-
-
-
-📡 API Endpoint
-POST /api/voice-detection
+📡 Step 7 — Test the API (Example)
 Request Body
 {
   "language": "English",
@@ -195,30 +159,17 @@ Response Example
   "explanation": "Unnatural pitch consistency and robotic speech patterns detected"
 }
 
+🔁 Restarting After Shutdown
+
+If the laptop is restarted:
+
+cd api
+uvicorn app:app
 
 
-🧪 Notes
+No retraining is required if model_weights.pth exists.
 
-Do not commit:
+🧠 Summary (One-Line)
 
-venv/
-
-model_weights.pth
-
-FFmpeg binaries
-
-Keep the API request/response format unchanged
-
-The system is designed to be language-agnostic across supported languages
-
-
-
-
-
-🧠 Core Approach
-
-The system combines:
-
-MFCC-based neural network classification
-
-Micro-Prosody Entropy Score (MPES) to detect unnaturally smooth pitch behavior commonly observed in AI-generated speech.
+After training the model and starting the FastAPI server, the final usable URL is
+http://127.0.0.1:8000/docs
